@@ -16,8 +16,7 @@ namespace Banking
         {
             if (amount <= 0)
             {
-                Console.WriteLine("Please enter a non-negitive number");
-                return false;
+                throw new AmmountGreaterThanZeroException();
             }
             this.Balance = this.Balance + amount;
             return true;
@@ -26,20 +25,18 @@ namespace Banking
         {
             if (amount <= 0)
             {
-                Console.WriteLine("Please enter a non-negitive number");
-                return false;
+                throw new AmmountGreaterThanZeroException();
             }
             if (amount > this.Balance)
             {
-                Console.WriteLine("Insufficient funds!");
-                return false;
+                throw new InsufficiantFundsException(this.Balance, amount);   //This.Balance takes Balance and puts it in CurrentBalance property in InsufficiantFundsException
             }
             this.Balance = this.Balance - amount;
             return true;
         }
-        public bool Transfer(decimal amount, Account ToAccount)   //ask for clearifacation on account ToAccount
+        public bool Transfer(decimal amount, Account ToAccount)   //Takes Account class and puts in ToAccount to access inside of Transfer method
         {
-            if (amount < 0)
+            if (amount <= 0)
             {
                 Console.WriteLine("Please enter a non-negitive number");
                 return false;
@@ -48,8 +45,9 @@ namespace Banking
             if (success)
             {
                 ToAccount.Deposit(amount);
+                return true;
             }
-            return true;
+            return false;
         }
         public void Print()
         {
