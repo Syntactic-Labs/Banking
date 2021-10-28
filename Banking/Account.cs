@@ -4,31 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Banking
-{
-    class Account
-    {
+namespace Banking {
+    class Account {
         public int Id { get; set; }
         public decimal Balance { get; set; } = 0;
         public string Description { get; set; }
 
-        public bool Deposit(decimal amount)
-        {
-            if (amount <= 0)
-            {
+        public bool Deposit(decimal amount) {
+            if (amount <= 0) {
                 throw new AmmountGreaterThanZeroException();
             }
             this.Balance = this.Balance + amount;
             return true;
         }
-        public bool Withdraw(decimal amount)
-        {
-            if (amount <= 0)
-            {
+        public bool Withdraw(decimal amount) {
+            if (amount <= 0) {
                 throw new AmmountGreaterThanZeroException();
             }
-            if (amount > this.Balance)
-            {
+            if (amount > this.Balance) {
                 throw new InsufficiantFundsException(this.Balance, amount);   //This.Balance takes Balance and puts it in CurrentBalance property in InsufficiantFundsException
             }
             this.Balance = this.Balance - amount;
@@ -36,21 +29,18 @@ namespace Banking
         }
         public bool Transfer(decimal amount, Account ToAccount)   //Takes Account class and puts in ToAccount to access inside of Transfer method
         {
-            if (amount <= 0)
-            {
+            if (amount <= 0) {
                 Console.WriteLine("Please enter a non-negitive number");
                 return false;
             }
             var success = Withdraw(amount);
-            if (success)
-            {
+            if (success) {
                 ToAccount.Deposit(amount);
                 return true;
             }
             return false;
         }
-        public void Print()
-        {
+        public void Print() {
             Console.WriteLine($"{Id} | {Balance} | {Description}");
         }
     }

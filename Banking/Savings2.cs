@@ -12,33 +12,26 @@ namespace Banking
 
         public int Id => account.Id;               //account value was assign in the construtor at the bottom
         public decimal Balance => account.Balance;
-        public string Description
-        {
+        public string Description {
             get { return account.Description; }
             set { account.Description = value; }
         }
         public decimal InterestRate { get; set; } = 0.01m;
-
-        public decimal CalculateAndPayIntrest(int months)
-        {
+        public decimal CalculateAndPayIntrest(int months) {
             var interest = this.account.Balance * (InterestRate / 12) * months;
             this.account.Deposit(interest);
             return interest;
         }
-        public bool Deposit(decimal amount)
-        {
+        public bool Deposit(decimal amount) {
             return this.account.Deposit(amount);
         }
-        public bool Withdraw(decimal amount)
-        {
+        public bool Withdraw(decimal amount) {
             return this.account.Withdraw(amount);
         }
-        public bool Transfer(decimal amount, Account ToAccount)
-        {
+        public bool Transfer(decimal amount, Account ToAccount) {
             return this.account.Transfer(amount, ToAccount);
         }
-        public void Print()
-        {
+        public void Print() {
             this.account.Print();
         }
 
