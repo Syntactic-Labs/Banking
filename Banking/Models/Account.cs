@@ -30,8 +30,7 @@ namespace Banking {
         public bool Transfer(decimal amount, Account ToAccount)   //Takes Account class and puts in ToAccount to access inside of Transfer method
         {
             if (amount <= 0) {
-                Console.WriteLine("Please enter a non-negitive number");
-                return false;
+                throw new AmmountGreaterThanZeroException();
             }
             var success = Withdraw(amount);
             if (success) {
